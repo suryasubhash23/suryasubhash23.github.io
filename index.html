@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulapa Surya | Data Analyst</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== Original Color Scheme ===== */
+        :root {
+            --rich-brown: #5D4037;
+            --dark-brown: #3E2723;
+            --black: #212121;
+            --deep-red: #C62828;
+            --warm-red: #D32F2F;
+            --cream: #F5F5F1;
+            --gold: #FFD700;
+            --bronze: #CD7F32;
+            --blue: #1976D2;
+            --green: #388E3C;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.2);
+            --shadow-lg: 0 10px 20px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        /* ===== Base Styles ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===== Navigation Bar ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--rich-brown), var(--black));
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--deep-red);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .logo {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== Utility Classes ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .section-title i {
+            margin-right: 0.8rem;
+            color: var(--deep-red);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-brown);
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--black);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            background: #1565C0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--green);
+            color: var(--green);
+        }
+
+        .btn-outline:hover {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        /* ===== Header Styles ===== */
+        .header {
+            background: linear-gradient(135deg, var(--rich-brown), var(--black));
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem 4rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--deep-red);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(198,40,40,0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .profile-img-container {
+            width: 10rem;
+            height: 10rem;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            border: 0.25rem solid var(--gold);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 40rem;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin: 1rem auto 2rem;
+            line-height: 1.5;
+            color: var(--cream);
+        }
+
+        /* ===== About Section ===== */
+        .about {
+            background: var(--white);
+            text-align: left;
+        }
+
+        .about-content {
+            max-width: 50rem;
+            margin: 0 auto;
+        }
+
+        .about-list {
+            list-style-type: none;
+            margin: 1.5rem 0;
+        }
+
+        .about-list li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 2rem;
+            font-size: 1.1rem;
+            color: var(--black);
+        }
+
+        .about-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--deep-red);
+        }
+
+        /* ===== Enhanced Skills Section ===== */
+        .skills {
+            background: var(--cream);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--white);
+            padding: 2rem 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .skill-icon-container {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--white) 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            border: 2px solid var(--gold);
+        }
+
+        .skill-card:hover .skill-icon-container {
+            background: linear-gradient(135deg, var(--blue) 0%, #1565C0 100%);
+            transform: scale(1.1);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover .skill-icon {
+            color: white;
+        }
+
+        .skill-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .skill-desc {
+            color: var(--black);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* ===== Certificates Section ===== */
+        .certificates {
+            background: var(--white);
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .certificate-card {
+            background: var(--white);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .certificate-img-container {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background: var(--cream);
+        }
+
+        .certificate-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            padding: 15px;
+        }
+
+        .certificate-card:hover .certificate-img {
+            transform: scale(1.05);
+        }
+
+        .certificate-info {
+            padding: 1.5rem;
+        }
+
+        .certificate-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            color: var(--black);
+        }
+
+        .certificate-issuer {
+            color: var(--dark-brown);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .certificate-date {
+            color: var(--bronze);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* ===== Education Section ===== */
+        .education {
+            background: var(--cream);
+        }
+
+        .education-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-item {
+            background: var(--white);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-left: 4px solid var(--gold);
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .education-institution {
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .education-degree {
+            font-size: 1.1rem;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .education-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: var(--bronze);
+            font-weight: 500;
+        }
+
+        /* ===== Projects Section ===== */
+        .projects {
+            background: var(--cream);
+        }
+
+        .project-card {
+            background: var(--white);
+            border-left: 0.25rem solid var(--blue);
+            padding: 1.75rem;
+            margin: 2.5rem 0;
+            border-radius: 0 0.75rem 0.75rem 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .project-card:hover {
+            transform: translateX(0.5rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-title {
+            color: var(--black);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-desc {
+            color: var(--black);
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .project-tech {
+            color: var(--bronze);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .project-impact {
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Contact Section ===== */
+        .contact {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .email {
+            background: var(--blue);
+            color: white;
+        }
+
+        .linkedin {
+            background: #0a66c2;
+            color: white;
+        }
+
+        .github {
+            background: var(--black);
+            color: white;
+        }
+
+        .phone {
+            background: var(--green);
+            color: white;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--black);
+            color: var(--gold);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--bronze);
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(1rem); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, var(--rich-brown), var(--black));
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section {
+                padding: 3.5rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+                gap: 1.5rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-item {
+                padding: 1.5rem;
+            }
+
+            .education-institution {
+                font-size: 1.3rem;
+            }
+
+            .education-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
+
+            .project-links .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .header-title {
+                font-size: 1.8rem;
+            }
+
+            .profile-img-container {
+                width: 8rem;
+                height: 8rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .skill-icon-container {
+                width: 5rem;
+                height: 5rem;
+            }
+
+            .skill-icon {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about-list li {
+                font-size: 1rem;
+            }
+
+            .education-institution {
+                font-size: 1.2rem;
+            }
+
+            .education-degree {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <i class="fas fa-chart-line"></i> Surya
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#certificates" class="nav-link">Certificates</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="profile-img-container">
+                <img src="assets/profile.jpg" 
+                     alt="Pulapa Surya" 
+                     class="profile-img"
+                     loading="lazy"
+                     onerror="this.src='https://via.placeholder.com/400x400?text=Profile+Image'">
+            </div>
+            <div class="header-content">
+                <h1 class="header-title">Pulapa Surya Subhash Pavan Kumar</h1>
+                <p class="tagline">Data Analyst | SQL | Python | Tableau Specialist</p>
+                <a href="#about" class="btn btn-primary">Explore My Work</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> About Me</h2>
+            <div class="about-content">
+                <p class="section-desc">Passionate Data Analyst with expertise in transforming raw data into actionable insights:</p>
+                
+                <ul class="about-list">
+                    <li><strong>Technical Skills:</strong> Python, SQL, Tableau, Excel, Data Structures & Algorithms</li>
+                    <li><strong>Analytical Approach:</strong> Strong problem-solving abilities with a focus on data-driven decision making</li>
+                    <li><strong>Recent Training:</strong> Completed intensive program in Data Structures and Algorithms</li>
+                    <li><strong>Project Experience:</strong> Developed Crop Production Analysis Dashboard and Library Management System</li>
+                    <li><strong>Goal:</strong> Leverage data analytics to drive business decisions and create impactful solutions</li>
+                </ul>
+                
+                <a href="assets/resume.pdf" class="btn btn-primary" style="margin-top: 1.5rem;">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i> Technical Skills</h2>
+            <p class="section-desc">Here are the key technologies I work with:</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fab fa-python skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">Python</h3>
+                    <p class="skill-desc">Pandas, NumPy, Matplotlib</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fas fa-database skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">SQL</h3>
+                    <p class="skill-desc">MySQL, Query Optimization</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fas fa-chart-bar skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">Tableau</h3>
+                    <p class="skill-desc">Dashboards, Visual Analytics</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fas fa-file-excel skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">Excel</h3>
+                    <p class="skill-desc">Pivot Tables, VLOOKUP</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fas fa-cloud skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">Cloud</h3>
+                    <p class="skill-desc">AWS Basics, NPTEL Certified</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon-container">
+                        <i class="fas fa-project-diagram skill-icon"></i>
+                    </div>
+                    <h3 class="skill-name">DSA</h3>
+                    <p class="skill-desc">C++, Algorithms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section certificates">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> Certificates</h2>
+            <p class="section-desc">Professional certificates I've earned:</p>
+            <div class="certificates-grid">
+                <!-- Cloud Computing Certificate -->
+                <div class="certificate-card">
+                    <div class="certificate-img-container">
+                        <img src="assets/cloud-cert.jpg" 
+                             alt="Cloud Computing Certification" 
+                             class="certificate-img"
+                             onerror="this.src='https://via.placeholder.com/600x400?text=Cloud+Cert'">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Cloud Computing Certification</h3>
+                        <span class="certificate-issuer">NPTEL (IIT Kharagpur)</span>
+                        <span class="certificate-date">Issued:Dec 2024</span>
+                        <a href="https://archive.nptel.ac.in/content/noc/NOC24/SEM2/Ecertificates/106/noc24-cs118/Course/NPTEL24CS118S95690075004346575.pdf" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- C++ Certificate -->
+                <div class="certificate-card">
+                    <div class="certificate-img-container">
+                        <img src="assets/cpp-cert.jpg" 
+                             alt="C++ Programming Certification" 
+                             class="certificate-img"
+                             onerror="this.src='https://via.placeholder.com/600x400?text=C%2B%2B+Cert'">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Programming in C++</h3>
+                        <span class="certificate-issuer">Coursera</span>
+                        <span class="certificate-date">Issued: 2023</span>
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/NQEJX722URHV" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- DSA Certificate -->
+                <div class="certificate-card">
+                    <div class="certificate-img-container">
+                        <img src="assets/dsa-cert.jpg" 
+                             alt="DSA Certification" 
+                             class="certificate-img"
+                             onerror="this.src='https://via.placeholder.com/600x400?text=DSA+Cert'">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Data Structures & Algorithms</h3>
+                        <span class="certificate-issuer">Udemy</span>
+                        <span class="certificate-date">Issued: 2023</span>
+                        <a href="https://www.udemy.com/certificate/UC-f2eab48f-eadc-40be-b3b5-aebd8f8dd9bf/" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Excel Certificate -->
+                <div class="certificate-card">
+                    <div class="certificate-img-container">
+                        <img src="assets/excel-cert.jpg" 
+                             alt="Excel Certification" 
+                             class="certificate-img"
+                             onerror="this.src='https://via.placeholder.com/600x400?text=Excel+Cert'">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Excel for Data Analytics</h3>
+                        <span class="certificate-issuer">Coursera</span>
+                        <span class="certificate-date">Issued: 2023</span>
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/DKA9TFF85R9Z" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tableau Certificate -->
+                <div class="certificate-card">
+                    <div class="certificate-img-container">
+                        <img src="assets/tableau-cert.jpg" 
+                             alt="Tableau Certification" 
+                             class="certificate-img"
+                             onerror="this.src='https://via.placeholder.com/600x400?text=Tableau+Cert'">
+                    </div>
+                    <div class="certificate-info">
+                        <h3 class="certificate-title">Tableau Data Visualization</h3>
+                        <span class="certificate-issuer">Coursera</span>
+                        <span class="certificate-date">Issued: 2023</span>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/HVMKSMRUFS0K" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Verify Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-code-branch"></i> Projects</h2>
+            <p class="section-desc">Highlighted projects demonstrating my skills:</p>
+            
+            <div class="project-card">
+                <h3 class="project-title">Crop Production Analysis Dashboard (Tableau)</h3>
+                <p class="project-desc">Developed an interactive Tableau dashboard to analyze crop yield patterns across different regions and seasons in India.</p>
+                
+                <div class="project-features">
+                    <h4 class="section-subtitle">Key Features:</h4>
+                    <ul class="about-list">
+                        <li>Integrated multiple data sources including rainfall, fertilizer usage, and pesticide data</li>
+                        <li>Created interactive visualizations for regional comparison</li>
+                        <li>Developed predictive models for yield estimation</li>
+                        <li>Implemented parameter controls for dynamic analysis</li>
+                    </ul>
+                </div>
+                
+                <p class="project-tech"><strong>Technologies:</strong> Tableau, Tableau Prep, Data Visualization</p>
+                <p class="project-impact"><strong>Impact:</strong> Enabled data-driven decisions for sustainable agriculture practices.</p>
+                
+                <div class="project-links">
+                    <a href="https://github.com/suryasubhash23/Crop-Production-Analysis" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                    <button class="btn btn-outline" onclick="openModal()">
+                        <i class="fas fa-eye"></i> Preview Dashboard
+                    </button>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h3 class="project-title">Library Management System (C++)</h3>
+                <p class="project-desc">A comprehensive system that manages library operations including book inventory and member records.</p>
+                
+                <div class="project-features">
+                    <h4 class="section-subtitle">Key Features:</h4>
+                    <ul class="about-list">
+                        <li>Book management (add, search, update, delete)</li>
+                        <li>User/member management system</li>
+                        <li>Book issuing and returning with fine calculation</li>
+                        <li>Data persistence using file handling</li>
+                        <li>Efficient search using data structures</li>
+                    </ul>
+                </div>
+                
+                <p class="project-tech"><strong>Technologies:</strong> C++, Object-Oriented Programming, Data Structures, File Handling</p>
+                <p class="project-impact"><strong>Impact:</strong> Reduced book search time by 50% and streamlined library operations.</p>
+                
+                <div class="project-links">
+                    <a href="https://github.com/suryasubhash23/LibraryManagementSystem" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                    <button class="btn btn-outline" onclick="showDemo()">
+                        <i class="fas fa-play"></i> View Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section education">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+            <p class="section-desc">My academic background and qualifications:</p>
+            
+            <div class="education-container">
+                <div class="education-item">
+                    <h3 class="education-institution">Lovely Professional University</h3>
+                    <p class="education-degree">Bachelor of Technology - Computer Science and Engineering; CGPA: 7.50</p>
+                    <div class="education-details">
+                        <span>Punjab, India</span>
+                        <span>October 2022 - Present</span>
+                    </div>
+                </div>
+                
+                <div class="education-item">
+                    <h3 class="education-institution">Tirumala Junior Kalasala</h3>
+                    <p class="education-degree">Intermediate; Percentage: 89.7%</p>
+                    <div class="education-details">
+                        <span>East Godavari, Andhra Pradesh</span>
+                        <span>June 2020 - September 2022</span>
+                    </div>
+                </div>
+                
+                <div class="education-item">
+                    <h3 class="education-institution">Tirumala E.M High School</h3>
+                    <p class="education-degree">Matriculation; Percentage: 100%</p>
+                    <div class="education-details">
+                        <span>East Godavari, Andhra Pradesh</span>
+                        <span>June 2019 - March 2020</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> Contact Me</h2>
+            <p class="section-desc">Feel free to reach out for collaborations or opportunities!</p>
+            <div class="contact-links">
+                <a href="mailto:pulapasurya@gmail.com" class="contact-link email">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                <a href="https://linkedin.com/in/suryasubhash23" class="contact-link linkedin" target="_blank">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/suryasubhash23" class="contact-link github" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="tel:+918886028277" class="contact-link phone">
+                    <i class="fas fa-phone"></i> Call
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 Pulapa Surya Subhash Pavan Kumar | Designed with ♥ for Data</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Modal functionality
+        function openModal() {
+            alert("Tableau dashboard preview would open here in a full implementation");
+        }
+
+        function showDemo() {
+            alert("Library system demo would open here in a full implementation");
+        }
+
+        // Image fallback handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            
+            images.forEach(img => {
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/600x400?text=Certificate+Image';
+                }
+            });
+            
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
